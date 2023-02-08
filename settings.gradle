@@ -1,2 +1,8 @@
-rootProject.name = 'GradleTest'
+// 配置插件仓库
+pluginManagement {
+    repositories {
+        maven { url uri("./my-awesome-plugin/repo") }
+    }
+}
 
+rootProject.name = "GradleTest"

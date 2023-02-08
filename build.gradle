@@ -1,5 +1,7 @@
 plugins {
     id "groovy"
+    // 在这里直接导入自定义的插件
+    id "my-awesome-plugin" version "1.2.3"
 }
 
 group "com.jmc"
@@ -33,7 +35,7 @@ task("hello-world") {
 }
 
 /**
- * 自定义插件
+ * Gradle内自定义插件
  * @author Jmc
  */
 class MyPlugin implements Plugin<Project> {
@@ -50,4 +52,5 @@ class MyPlugin implements Plugin<Project> {
     }
 }
 
+// 引入自定义的插件
 apply plugin: MyPlugin

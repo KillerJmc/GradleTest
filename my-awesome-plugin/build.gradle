@@ -1,0 +1,41 @@
+plugins {
+    id "java"
+    id "java-gradle-plugin"
+    id "maven-publish"
+}
+
+group "com.jmc"
+version "1.2.3"
+
+repositories {
+    mavenCentral()
+}
+
+// 这个配置作用其实就是在jar包的META-INF/gradle-plugins中创建
+// $id.properties文件，内容是implementation-class=$implementationClass
+//
+// 并且为了方便在plugin closure中调用
+// 在生成的repo中，直接在根目录就有指向插件的文件夹（名称就是插件名）
+// 并且里面的pom直接导入了插件的包，用的时候直接在plugin closure写上id和version即可。
+gradlePlugin {
+    plugins {
+        myAwesomePlugin {
+            id = "my-awesome-plugin"
+            implementationClass = "com.jmc.MyAwesomePlugin"
+        }
+    }
+}
+
+publishing {
+    publications {
+        release(MavenPublication) {
+            from components.java
+        }
+    }
+
+    repositories {
+        maven {
+            url = "$rootDir/repo"
+        }
+    }
+}
