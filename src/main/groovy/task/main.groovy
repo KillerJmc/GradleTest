@@ -21,7 +21,10 @@ static void main(String[] args) {
         }
     }
 
-    // 模拟gradle后台在执行任务
+    // 模拟gradle后台
+    // 初始化任务
+    hello.init()
+    // 执行任务
     hello.execute()
 }
 

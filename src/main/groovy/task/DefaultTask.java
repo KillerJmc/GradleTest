@@ -37,11 +37,14 @@ public class DefaultTask implements Task {
     }
 
     @Override
-    public void execute() {
+    public void init() {
         // 获取配置方法并执行
         var configure = closures.get("configure");
         configure.call();
+    }
 
+    @Override
+    public void execute() {
         // 获取任务执行方法并执行
         var doLast = closures.get("doLast");
         doLast.call();

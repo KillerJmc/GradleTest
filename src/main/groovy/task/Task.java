@@ -24,6 +24,11 @@ public interface Task {
     Task doLast(@DelegatesTo(Task.class) Closure c);
 
     /**
+     * 初始化任务
+     */
+    void init();
+
+    /**
      * 执行任务
      */
     void execute();
