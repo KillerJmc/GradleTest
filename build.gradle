@@ -1,14 +1,53 @@
 plugins {
-    id 'groovy'
+    id "groovy"
 }
 
-group 'com.jmc'
-version '1.0.0'
+group "com.jmc"
+version "1.0.0"
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    implementation 'org.apache.groovy:groovy:4.0.2'
+    implementation "org.apache.groovy:groovy:4.0.2"
 }
+
+task("dep") {
+    println "正在配置任务：dep"
+
+    doLast {
+        println "正在执行任务：dep"
+    }
+}
+
+task("hello-world") {
+    // 依赖dep任务
+    dependsOn("dep")
+
+    println "正在配置任务：hello-world"
+
+    doLast {
+        println "正在执行任务：hello-world"
+    }
+}
+
+/**
+ * 自定义插件
+ * @author Jmc
+ */
+class MyPlugin implements Plugin<Project> {
+    @Override
+    void apply(Project project) {
+        project.task("test-plugin") {
+            // 依赖hello-world任务
+            dependsOn("hello-world")
+
+            doLast {
+                println "正在执行任务：test-plugin"
+            }
+        }
+    }
+}
+
+apply plugin: MyPlugin
